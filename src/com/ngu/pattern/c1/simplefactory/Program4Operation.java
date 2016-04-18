@@ -20,7 +20,7 @@ public abstract class Program4Operation {
 	
 	protected static boolean isNumber(String number) {
 		try {
-			Integer.parseInt(number);
+			Double.parseDouble(number);
 			return true;
 		} catch (Exception e) {
 			return false;

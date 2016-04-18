@@ -7,10 +7,7 @@ public class Program4OperationSquare extends Program4Operation {
 
 	@Override
 	protected String getResult(String numberA, String numberB) {
-		if (super.getResult(numberA, numberB) != null) {
-			return super.getResult(numberA, numberB);
-		}
-		return Math.pow(Integer.parseInt(numberA), 2) + Math.pow(Integer.parseInt(numberB), 2) + "";
+		return super.getResult(numberA, numberB) == null ? (Math.pow(Integer.parseInt(numberA), 2) + Math.pow(Integer.parseInt(numberB), 2) + "") : super.getResult(numberA, numberB);
 	}
 
 }

@@ -25,20 +25,38 @@ public class Program4 {
 		String sign = null;
 		String result = null;
 		try {
-			System.out.println("input number a : ");
+			printWithSingleLine("input number a : ");
 			numberA = br.readLine();
-			System.out.println("input sign : ");
+			printWithSingleLine("input sign : ");
 			sign = br.readLine();
-			System.out.println("input number b : ");
+			printWithSingleLine("input number b : ");
 			numberB = br.readLine();
-			System.out.print("result = ");
+			printWithSingleLine("result is : ");
 			result = Program4OperationFactory.createOperation(sign).getResult(numberA, numberB);
-			System.out.println(result);
+			printWithSingleLine(result);
 		} catch (Program4OperationNullException e) {
-			System.out.println("[error : " + e.getMessage() + "]");
+			printErrorMessage(e.getMessage());
 		} catch (IOException e) {
-			System.out.println("[error : " + e.getMessage() + "]");
+			printErrorMessage(e.getMessage());
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				printErrorMessage(e.getMessage());
+			}
 		}
+	}
+	
+	private static void printWithSingleLine(String info) {
+		System.out.print(info);
+	}
+	
+	private static void printMessage(String info) {
+		printWithSingleLine(info + "\r\n");
+	}
+	
+	private static void printErrorMessage(String error) {
+		printMessage("[error : " + error + "]");
 	}
 
 }
