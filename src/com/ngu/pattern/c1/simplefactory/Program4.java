@@ -8,7 +8,8 @@ import java.io.InputStreamReader;
  * 在"Program3"的基础上，"解耦"，提升程序的扩展性，比如，如果后续需要增添新运算符
  * 则只需要在 Program4OperationFactory 的 createOperation 方法中增加新的
  * 运算符并增加对应的新运算符实现类继承 Program4Operation 即可，而不需要对其它
- * 类做任何改动（改动少，自然就不易出错了:)）。ps,新实现参考：
+ * 类做任何改动（改动少，自然就不易出错了:)）。
+ * ps.新实现参考：Program4OperationSquare
  * 
  * ============================
  * 以上便是"简单工厂"的实现(160418)

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
+ * 需求：编写一个简单的能实现"加减乘除"运算的程序。
  * 最直观能想到的，由上至下"面向过程"式的解题思路。
  */
 public class Program1 {
