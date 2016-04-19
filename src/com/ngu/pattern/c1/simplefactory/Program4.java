@@ -3,6 +3,7 @@ package com.ngu.pattern.c1.simplefactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import static com.ngu.pattern.Utils.*;
 
 /**
  * 在"Program3"的基础上，"解耦"，提升程序的扩展性，比如，如果后续需要增添新运算符
@@ -47,16 +48,6 @@ public class Program4 {
 		}
 	}
 	
-	private static void printWithSingleLine(String info) {
-		System.out.print(info);
-	}
 	
-	private static void printMessage(String info) {
-		printWithSingleLine(info + "\r\n");
-	}
-	
-	private static void printErrorMessage(String error) {
-		printMessage("[error : " + error + "]");
-	}
 
 }
