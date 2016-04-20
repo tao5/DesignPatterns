@@ -22,7 +22,7 @@ public class Program3 {
 		String priceText = null;
 		String quantityText = null;
 		
-		String discountRule = discountRules[3];
+		String discountRule = discountRules[0];
 		
 		try {
 			while (true) {
@@ -46,8 +46,7 @@ public class Program3 {
 					println("input vaild quantity plz.");
 					continue;
 			 	}
-				total += price * quantity;
-				total = Program3DiscountFactory.createDiscountRule(discountRule).discount(total);
+				total += Program3DiscountFactory.createDiscountRule(discountRule).discount(price * quantity);
 				println("total price : " + total);
 				
 			}

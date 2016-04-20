@@ -6,29 +6,28 @@ import java.io.InputStreamReader;
 import static com.ngu.pattern.Utils.*;
 
 /**
- * 需求：做一个商场收银软件，营业员输入商品价格和数量后，能得到商品总价格
- * "面向过程"式编程，写出以下代码
- * 
- * Program1 基本实现
- * Program2 增加打折功能
- * Program3 "简单工厂"重构
- * Program4 "策略"重构
- * Program5 将"策略静态"
- * Program6 "策略"和"简单工厂"相结合
- * Program7 将"静态静态"
- * 
+ * 在 Program5 基础上，将策略和简单工厂相结合
+ * 把判断逻辑转移到 DiscountContext 中，至此客户端只需要知道 DiscountContext 这一个类，和
+ * 之前的工厂模式相比较：客户端需要知道 DiscountFactory 和 Discount 两个类。耦合度减低了
  */
-public class Program1 {
-
+public class Program6 {
+	
 	public static void main(String[] args) {
+		
+		String[] discountRules = new String[]{"half-price", "full-price", "twenty-percent-off", "300sub100"};
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		double price = 0;
 		double quantity = 0;
 		double total = 0;
 		String priceText = null;
 		String quantityText = null;
+		
+		String discountRule = discountRules[0];
+		Program6DiscountContext discountContext = new Program6DiscountContext(discountRule);
+		
 		try {
 			while (true) {
+				
 				print("input price : ");
 				priceText = br.readLine();
 				if(isQuit(priceText)) break;
@@ -48,22 +47,23 @@ public class Program1 {
 					println("input vaild quantity plz.");
 					continue;
 			 	}
-				
-				total += price * quantity;
+				total += discountContext.executeDiscount(price * quantity);
 				println("total price : " + total);
 				
 			}
 		} catch (IOException e) {
 			printErrorMessage(e.getMessage());
+		} catch (Program3DiscountNullException e) {
+			printErrorMessage(e.getMessage());
 		} finally {
 			try {
 				br.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				printErrorMessage(e.getMessage());
 			}
 		}
 	}
-	
+
 	private static boolean isQuit(String line) {
 		return "q".equals(line);
 	}

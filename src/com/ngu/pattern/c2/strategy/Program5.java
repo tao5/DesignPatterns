@@ -6,23 +6,19 @@ import java.io.InputStreamReader;
 import static com.ngu.pattern.Utils.*;
 
 /**
- * 在 Program3 的基础上，使用"策略模式"重构。
+ * 在 Program4 的基础上，把 Program4DiscountContext2 改成了静态，
+ * 好像并没有什么不妥（待思考），原先由 Program4DiscountContext 维
+ * 护对 Discount（"策略"）的引用反倒显得多余？
  * 
- * 之前说过，这里的打折规则是长期处于变换状态的，即打折算法是"易变更"的，而面
- * 对这种不稳定的算法，使用"简单工厂模式"就不是很合适了，应该使用"策略模式"。
+ * "简单工厂"和"策略"最大的区别：一个是在内部根据不同的条件创建相应的对象，
+ * 一个是将创建对象的动作交给外部的调用者来做，由调用者决定使用哪种具体对象，
+ * 它"模糊"了具体使用哪个对象。
  * 
- * 重构后由代码可见："策略"和"简单工厂"的区别其实并不是很大。回想一下，在之前的"
- * 简单工厂模式"里，如果需要添加新的打折规则，需要更改 DiscountFactory 中的代
- * 码，在 createDiscountRule 方法中添加判断和新的打折规则，并实现相应的打折规
- * 则。DiscountFactory 需要变动。而使用"策略模式"重构之后，虽然依旧需要添加新
- * 的打折类（这是必不可少的，添加了新的算法，自然需要去做具体实现），但
- * Program4DiscountContext 并不需要做改动，算法被封装了起来，可以实现算法替
- * 换，而不会影响到使用算法的客户。
- * 
- * 哪些是不变的，哪些是易变的，是这里("策略"和"简单工厂")的区分重点。
- * 
+ * 从类图上看，"简单工厂"和"策略"的唯一区别是：
+ * "简单工厂"里的 DiscountFactory 和 Discount 抽象类是依赖关系（Discount 对象是局部变量），
+ * 而"策略"里的 DiscountContext 和 Discount 抽象类是关联关系（Discount 对象是成员变量），如果改成静态，Discount对象则是参数，又变成依赖关系了。
  */
-public class Program4 {
+public class Program5 {
 	
 	public static void main(String[] args) {
 		
@@ -34,9 +30,7 @@ public class Program4 {
 		String priceText = null;
 		String quantityText = null;
 		
-		String discountRule = discountRules[0];
-		
-		Program4DiscountContext discountContext = new Program4DiscountContext(getDiscount(discountRule));
+		String discountRule = discountRules[3];
 		
 		try {
 			while (true) {
@@ -60,7 +54,7 @@ public class Program4 {
 					println("input vaild quantity plz.");
 					continue;
 			 	}
-				total += discountContext.executeDiscount(price * quantity);
+				total += Program5DiscountContext.executeDiscount(getDiscount(discountRule), price * quantity);
 				println("total price : " + total);
 				
 			}
